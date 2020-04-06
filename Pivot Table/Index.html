@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pivot Table</title>
+    <!-- external libs from cdnjs -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <!-- PivotTable.js libs from ../dist -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.css"
+        integrity="sha256-nn3M6N8S2BjPirPhvCF61ZCcgcppdLtnaNOLhiwro7E=" crossorigin="anonymous" />
+
+    <!--<script type="text/javascript" src="pivot.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/pivottable@2/dist/pivot.min.js"></script>
+
+    <style>
+        body {
+            font-family: Verdana;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+        var data;
+        $.when(jQuery.ajax({
+            url: 'https://vuilbakmartijn.bettywebblocks.com/getpivotdata',
+            method: 'GET',
+            success: function (response) {
+                console.log("success");
+                data = response.projects;
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("ajax error");
+            }
+        })).then(function () {
+            console.log(data.length);
+            var outputData = [];
+
+            for (var i = 0; i < data.length; i++) {
+                outputData.push(data[i]);
+            }
+
+            console.log(outputData);
+
+            $(function () {
+            $("#output").pivotUI(
+              outputData,
+                {
+                    rows: ["name"],
+                    cols: ["id"]
+                }
+            );
+        });
+        })
+
+
+
+
+        
+
+
+        /*$(function () {
+            $("#output").pivotUI(
+                [
+                    { FirstOrRepeat: "first", shape: "circle", test: "1" },
+                    { FirstOrRepeat: "repeat", shape: "triangle", test: "2" },
+
+                ],
+                {
+                    rows: ["FirstOrRepeat", "test"],
+                    cols: ["shape"]
+                }
+            );
+        });*/
+    </script>
+
+    <div id="output"></div>
+    <div id="output2"></div>
+</body>
+
+</html>

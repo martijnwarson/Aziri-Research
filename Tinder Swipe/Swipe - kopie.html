@@ -1,0 +1,521 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tinder voor bedrijven</title>
+
+
+
+    <style>
+        #board {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-color: #F3F7FA;
+        }
+
+        #panelpage {
+            height: 47vh;
+            width: 90%;
+            overflow: hidden;
+            background: #FFFFFF;
+            margin-left: 5%;
+            margin-right: 5%;
+            border-radius: 1%;
+            margin-top: 30%;
+            -webkit-box-shadow: 3px 9px 52px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 3px 9px 52px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: 3px 9px 52px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            width: 700px;
+            height: 700px;
+            position: absolute;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 45%;
+            left: 50%;
+            border-radius: 1%;
+            box-shadow: 3px 5px 10px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            transform: translateX(-50%) translateY(-50%) scale(0.95);
+            z-index: 1000;
+        }
+
+        #companyTitle {
+            position: absolute;
+            margin-top: 85%;
+            margin-left: 12%;
+            font-size: 3em;
+            font-weight: bold;
+            color: #7F8491;
+            font-family: 'Varela Round', Roboto;
+            z-index: 0;
+        }
+
+        #location {
+            margin-top: 102%;
+        }
+
+        #locationIcon {
+            width: 3%;
+            margin-left: 13%;
+            color: #7F8491;
+            margin-right: 10px;
+        }
+
+        #locationName {
+            color: #7F8491;
+            font-size: 2.5em;
+        }
+
+
+        #dash {
+            color: #7F8491;
+            font-size: 2.5em;
+        }
+
+        #provinceName {
+            color: #7F8491;
+            font-size: 2.5em;
+        }
+
+        #buttonRow {
+            margin-top: 20%;
+            margin-left: 23%;
+        }
+
+        .button {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border: 1px solid white;
+
+        }
+
+        .likeBtn {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border: 1px solid white;
+            -webkit-box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+            -moz-box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+            box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+
+        }
+
+        .dislikeBtn {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border: 1px solid white;
+            margin-left: 20%;
+            -webkit-box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+            -moz-box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+            box-shadow: -1px 7px 25px 0px rgba(89, 89, 89, 0.28);
+        }
+
+        #likeIcon {
+            width: 50%;
+        }
+
+        #dislikeIcon {
+            width: 50%;
+        }
+
+        #infoBtn {
+            float: right;
+            margin-top: 98%;
+
+        }
+
+        #infoIcon {
+            width: 24%;
+            color: #7F8491;
+        }
+
+        #infoButton {
+            border: none;
+            background: transparent;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="hidden" id="hidden_div" name="objectId" value="" />
+    <div id="board">
+        <div id="panelpage">
+
+            <div id="companyTitle"></div>
+
+            <span id="infoBtn">
+
+                <button id="infoButton" onclick="goToInfoPage()"><svg id="infoIcon" aria-hidden="true" focusable="false"
+                        data-prefix="far" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512" class="svg-inline--fa fa-info-circle fa-w-16">
+                        <path fill="currentColor"
+                            d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm0-338c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+                            class=""></path>
+                    </svg></button></span>
+
+            <div id="location">
+                <span><svg id="locationIcon" aria-hidden="true" focusable="false" data-prefix="far"
+                        data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                        class="svg-inline--fa fa-map-marker-alt fa-w-12">
+
+
+                        <path fill="currentColor"
+                            d="M192 0C85.903 0 0 86.014 0 192c0 71.117 23.991 93.341 151.271 297.424 18.785 30.119 62.694 30.083 81.457 0C360.075 285.234 384 263.103 384 192 384 85.903 297.986 0 192 0zm0 464C64.576 259.686 48 246.788 48 192c0-79.529 64.471-144 144-144s144 64.471 144 144c0 54.553-15.166 65.425-144 272zm-80-272c0-44.183 35.817-80 80-80s80 35.817 80 80-35.817 80-80 80-80-35.817-80-80z"
+                            class=""></path>
+                    </svg></span>
+                <span id="locationName"></span>
+                <span id="dash"> &nbsp;-&nbsp; </span>
+                <span id="provinceName"></span>
+            </div>
+
+        </div>
+
+        <div id="buttonRow">
+            <button class="likeBtn">
+                <svg id="likeIcon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-heart fa-w-16">
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(165, 238, 227);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(138, 206, 190);stop-opacity:1" />
+                    </linearGradient>
+                    <path fill="url(#grad1)"
+                        d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                        class=""></path>
+                </svg>
+            </button>
+            <button class="dislikeBtn" id="rightBtn"> <svg id="dislikeIcon" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 365.696 365.696" width="365.696pt">
+                    <linearGradient id="grad2" x1="50%" y1="100%" x2="50%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(238, 105, 134);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:		rgb(253, 156, 177);stop-opacity:1" />
+                    </linearGradient>
+                    <path fill="url(#grad2)"
+                        d="m243.1875 182.859375 113.132812-113.132813c12.5-12.5 12.5-32.765624 0-45.246093l-15.082031-15.082031c-12.503906-12.503907-32.769531-12.503907-45.25 0l-113.128906 113.128906-113.132813-113.152344c-12.5-12.5-32.765624-12.5-45.246093 0l-15.105469 15.082031c-12.5 12.503907-12.5 32.769531 0 45.25l113.152344 113.152344-113.128906 113.128906c-12.503907 12.503907-12.503907 32.769531 0 45.25l15.082031 15.082031c12.5 12.5 32.765625 12.5 45.246093 0l113.132813-113.132812 113.128906 113.132812c12.503907 12.5 32.769531 12.5 45.25 0l15.082031-15.082031c12.5-12.503906 12.5-32.769531 0-45.25zm0 0" />
+                </svg></button>
+
+
+        </div>
+
+
+    </div>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <script>
+
+        var companyCollection = [];
+        var images = [];
+        var usedImages = ["image"];
+        var counter;
+        var objectArray = [];
+        var variableUrl;
+
+        function goToInfoPage() {
+            console.log('Dit is een test');
+            window.location.href="#/swipev2";
+        }
+
+        $.ajax({
+            url: 'https://moorebelgiumdemopoc.bettywebblocks.com/getswipedata',
+            method: 'GET',
+            async: false,
+            success: function (data) {
+                console.log("Ajax-call succeed");
+                /* for (var i = 0; i < data.companies.length; i++) {
+                     companyCollection.push(data.companies[i]);
+                     images.push("url('" + data.companies[i].image_url + "')");
+                 }*/
+
+                for (var i = 0; i < data.companies.length; i++) {
+                    objectArray.push(data.companies[i]);
+                }
+                //console.log(objectArray);
+
+                //console.log(images);
+
+                function shuffle(a) {
+                    var j, x, i;
+                    for (i = a.length - 1; i > 0; i--) {
+                        j = Math.floor(Math.random() * (i + 1));
+                        x = a[i];
+                        a[i] = a[j];
+                        a[j] = x;
+                    }
+                    return a;
+                }
+
+                //shuffle(images);
+                //console.log(images);
+                shuffle(objectArray);
+                counter = objectArray.length - 1;
+
+            },
+            error: function (e) {
+                console.log("Ajax-call error");
+                console.log(e.message);
+            },
+            complete:
+                function () {
+
+                }
+        })
+
+      
+
+        /* LikeCarousel (c) 2019 Simone P.M. github.com/simonepm - Licensed MIT */
+
+        class Carousel {
+
+            constructor(element) {
+
+                this.board = element
+
+                // add first two cards programmatically
+                // else, when you swipe, there is nog card in the background
+                this.push()
+                //this.push()
+
+                // handle gestures
+                this.handle() //function
+
+            }
+
+            handle() {
+
+                // list all cards
+                this.cards = this.board.querySelectorAll('.card') //places all cards underneath eachother
+
+                // get top card
+                this.topCard = this.cards[this.cards.length - 1]
+
+                // get next card
+                this.nextCard = this.cards[this.cards.length - 2]
+
+                // if at least one card is present
+                if (this.cards.length > 0) {
+
+                    // set default top card position and scale
+                    this.topCard.style.transform =
+                        'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+
+                    // destroy previous Hammer instance, if present
+                    if (this.hammer) this.hammer.destroy()
+
+                    // listen for tap and pan gestures on top card
+                    // hammer delivers information of gestures of the top card
+                    this.hammer = new Hammer(this.topCard)
+                    this.hammer.add(new Hammer.Tap())
+                    this.hammer.add(new Hammer.Pan({
+                        position: Hammer.position_ALL, threshold: 0
+                    }))
+
+                    // pass events data to custom callbacks
+                    this.hammer.on('tap', (e) => { this.onTap(e) }) // call function
+                    this.hammer.on('pan', (e) => { this.onPan(e) }) // call function
+
+                }
+
+            }
+
+            onTap(e) {
+
+                // get finger position on top card
+                let propX = (e.center.x - e.target.getBoundingClientRect().left) / e.target.clientWidth
+
+                // get degree of Y rotation (+/-15 degrees)
+                let rotateY = 15 * (propX < 0.05 ? -1 : 1)
+
+                // change the transition property
+                this.topCard.style.transition = 'transform 100ms ease-out'
+
+                // rotate
+                this.topCard.style.transform =
+                    'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(' + rotateY + 'deg) scale(1)'
+
+                // wait transition end
+                setTimeout(() => {
+                    // reset transform properties
+                    this.topCard.style.transform =
+                        'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+                }, 100)
+
+            }
+
+            onPan(e) {
+
+                if (!this.isPanning) { //if this.isPanning = false (when card isn't moving, this.isPanning == false)
+
+                    this.isPanning = true
+
+                    // remove transition properties
+                    this.topCard.style.transition = null
+                    if (this.nextCard) this.nextCard.style.transition = null
+
+                    // get top card coordinates in pixels
+                    let style = window.getComputedStyle(this.topCard)
+                    let mx = style.transform.match(/^matrix\((.+)\)$/)
+                    this.startPosX = mx ? parseFloat(mx[1].split(', ')[4]) : 0
+                    this.startPosY = mx ? parseFloat(mx[1].split(', ')[5]) : 0
+
+                    // get top card bounds
+                    let bounds = this.topCard.getBoundingClientRect()
+
+                    // get finger position on top card, top (1) or bottom (-1)
+                    this.isDraggingFrom =
+                        (e.center.y - bounds.top) > this.topCard.clientHeight / 2 ? -1 : 1
+
+                }
+
+                // calculate new coordinates
+                let posX = e.deltaX + this.startPosX
+                let posY = e.deltaY + this.startPosY
+
+                // get ratio between swiped pixels and the axes
+                let propX = e.deltaX / this.board.clientWidth
+                let propY = e.deltaY / this.board.clientHeight
+
+                // get swipe direction, left (-1) or right (1)
+                let dirX = e.deltaX < 0 ? -1 : 1
+
+                // calculate rotation, between 0 and +/- 45 deg
+                let deg = this.isDraggingFrom * dirX * Math.abs(propX) * 45 // rotation by swipe
+
+                // calculate scale ratio, between 95 and 100 %
+                let scale = (95 + (5 * Math.abs(propX))) / 100
+
+                // move top card
+                this.topCard.style.transform =
+                    'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg) rotateY(0deg) scale(1)'
+
+                // scale next card
+                if (this.nextCard) this.nextCard.style.transform =
+                    'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(' + scale + ')'
+
+                if (e.isFinal) {
+
+                    this.isPanning = false
+
+                    let successful = false
+
+                    // set back transition properties
+                    this.topCard.style.transition = 'transform 200ms ease-out'
+                    if (this.nextCard) this.nextCard.style.transition = 'transform 100ms linear'
+
+                    // check threshold
+                    if (propX > 0.25 && e.direction == Hammer.DIRECTION_RIGHT) {
+
+                        successful = true
+                        // get right border position
+                        posX = this.board.clientWidth
+                        console.log("swiped right");
+
+                    } else if (propX < -0.25 && e.direction == Hammer.DIRECTION_LEFT) {
+
+                        successful = true
+                        // get left border position
+                        posX = - (this.board.clientWidth + this.topCard.clientWidth)
+                        console.log("swiped left");
+
+                    } else if (propY < -0.25 && e.direction == Hammer.DIRECTION_UP) {
+
+                        successful = true
+                        // get top border position
+                        posY = - (this.board.clientHeight + this.topCard.clientHeight)
+
+                    }
+
+                    if (successful) {
+
+                        // throw card in the chosen direction
+                        this.topCard.style.transform =
+                            'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)'
+
+                        // wait transition end
+                        setTimeout(() => {
+                            // remove swiped card
+                            this.board.removeChild(this.topCard)
+                            // add new card
+                            this.push()
+                            // handle gestures on new top card
+                            this.handle()
+                        }, 200)
+
+                    } else {
+
+                        // reset cards position
+                        this.topCard.style.transform =
+                            'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+                        if (this.nextCard) this.nextCard.style.transform =
+                            'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(0.95)'
+                    }
+                }
+            }
+
+            push() {
+
+                console.log(objectArray[counter]);
+                console.log(counter);
+
+                //let card = document.createElement('div') //div
+                let card = document.createElement('img') //div
+                card.classList.add('card')
+
+
+                //card.style.backgroundImage = variableUrl; //show random image
+                card.src = objectArray[counter].image_url;
+                console.log(objectArray[counter].image_url);
+                //console.log(counter);
+
+                var element = document.getElementById("companyTitle");
+                element.innerHTML = objectArray[counter].company_name;
+
+                var locationName = document.getElementById("locationName");
+                locationName.innerHTML = objectArray[counter].city;
+
+                var provinceName = document.getElementById("provinceName");
+                provinceName.innerHTML = objectArray[counter].province;
+
+                counter--;
+
+                if (this.board.firstChild) {
+                    this.board.insertBefore(card, this.board.firstChild)
+                } else {
+                    this.board.append(card)
+                }
+
+            }
+
+
+        }
+
+        let board = document.querySelector('#panelpage')
+
+        let carousel = new Carousel(board)
+
+        //FUNCTIONS
+
+
+
+    </script>
+</body>
+
+</html>

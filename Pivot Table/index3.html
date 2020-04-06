@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Pivot</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.js'></script>
+    <script src='https://cdn.plot.ly/plotly-basic-latest.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.22.0/plotly_renderers.min.js'></script>
+
+</head>
+
+<body>
+    <div style="margin: 1em;" id="output"></div>
+
+    <script>
+        //VARIABELEN
+        var projects;
+        var projectteams;
+        var customArray = [];
+
+        //AJAX CALL
+        $.when(jQuery.ajax({
+            url: 'https://alfalavalprojectdata-acc.bettywebblocks.com/getpivotdata',
+            method: 'GET',
+            success: function (response) {
+                console.log("success");
+                projects = response.projects;
+                projectteams = response.projectteams;
+
+
+            },
+            error: function (e) {
+                console.log("ajax error");
+            }
+        })).then(function () {
+            var salesPivotData = [];
+
+            //OVERZICHT VAN AANTAL PROJECTEN PER PROJECT MANAGER
+            /*for (var i = 0; i < projects.length; i++) {
+                for (var j = 0; j < projectteams.length; j++) {
+                    if (projects[i].project_team.id == projectteams[j].id) {
+                        salesPivotData.push(projectteams[j].project_manager);
+                    }
+                }
+            }*/
+
+            for (var i = 0; i < projects.length; i++) {
+                salesPivotData.push(projects[i]);
+            }
+
+
+            //console.log(salesPivotData);
+
+            for (var i = 0; i < projects.length; i++) {
+                customArray.push(projects[i].status);
+            }
+            console.log(customArray);
+            
+
+            $("#output").pivotUI(
+                salesPivotData, {
+                rows: ["name"],
+                cols: [],
+                renderers: $.extend(
+                    $.pivotUtilities.renderers,
+                    $.pivotUtilities.plotly_renderers,
+                )
+            });
+        })
+
+    </script>
+</body>
+
+</html>

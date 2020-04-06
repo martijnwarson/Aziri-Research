@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Pivot</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.js'></script>
+    <script src='https://cdn.plot.ly/plotly-basic-latest.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.22.0/plotly_renderers.min.js'></script>
+
+</head>
+<body>
+<div style="margin: 1em;" id="output"></div>
+
+<script>
+    var salesPivotData = [
+        {
+            "Region": "Australia and Oceania",
+            "Country": "Kiribati",
+            "Item Type": "Cereal",
+            "Sales Channel": "Offline",
+            "Order Priority": "L",
+            "Order Date": "7/24/2012",
+            "Order ID": 905392587,
+            "Ship Date": "8/16/2012",
+            "Units Sold": 4641,
+            "Unit Price": 205.7,
+            "Unit Cost": 117.11,
+            "Total Revenue": 954653.7,
+            "Total Cost": 543507.51,
+            "Total Profit": 411146.19 },
+
+        {
+            "Region": "Asia",
+            "Country": "Cambodia",
+            "Item Type": "Snacks",
+            "Sales Channel": "Online",
+            "Order Priority": "C",
+            "Order Date": "3/25/2012",
+            "Order ID": 990708720,
+            "Ship Date": "5/4/2012",
+            "Units Sold": 1581,
+            "Unit Price": 152.58,
+            "Unit Cost": 97.44,
+            "Total Revenue": 241228.98,
+            "Total Cost": 154052.64,
+            "Total Profit": 87176.34 },
+    ];
+
+
+    $("#output").pivotUI(
+        salesPivotData, {
+            rows: ["Country"],
+            cols: [],
+               renderers: $.extend(
+                   $.pivotUtilities.renderers,
+                   $.pivotUtilities.plotly_renderers,
+
+               )
+        });
+</script>
+</body>
+</html>
